@@ -60,7 +60,7 @@ def index(session_id):
                 filepath=DEFAULT_FILE_PATH,
                 num_products=DEBUG_PROD_SIZE
             )
-        search_engine = init_search_engine(num_products=DEBUG_PROD_SIZE)
+        search_engine = init_search_engine(num_products='all')
         goals = get_goals(all_products, product_prices)
         random.seed(233)
         random.shuffle(goals)

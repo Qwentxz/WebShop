@@ -18,7 +18,7 @@ from pyserini.search.lucene import LuceneSearcher
 from web_agent_site.utils import (
     BASE_DIR,
     DEFAULT_FILE_PATH,
-    DEFAULT_REVIEW_PATH,
+    # DEFAULT_REVIEW_PATH,
     DEFAULT_ATTR_PATH,
     HUMAN_ATTR_PATH
 )
@@ -199,6 +199,8 @@ def init_search_engine(num_products=None):
         indexes = 'indexes_1k'
     elif num_products == 100000:
         indexes = 'indexes_100k'
+    elif num_products == 'all':
+        indexes = 'indexes_all' 
     elif num_products is None:
         indexes = 'indexes'
     else:
@@ -255,8 +257,9 @@ def load_products(filepath, num_products=None, human_goals=True):
     all_products = []
     attribute_to_asins = defaultdict(set)
     if num_products is not None:
+        if num_products != 'all':
+            products = products[:num_products]
         # using item_shuffle.json, we assume products already shuffled
-        products = products[:num_products]
     for i, p in tqdm(enumerate(products), total=len(products)):
         asin = p['asin']
         if asin == 'nan' or len(asin) > 10:
